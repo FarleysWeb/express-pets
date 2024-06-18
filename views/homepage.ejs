@@ -130,7 +130,7 @@
                 <span class="pet-name">
                   <%= pet.name %>
                 </span>
-                <button class="pet-contact-btn" onclick="openOverlay(this)">
+                <button data-id="<%= pet._id %>" class="pet-contact-btn" onclick="openOverlay(this)">
                   <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g clip-path="url(#clip0_302_7)">
                       <path
@@ -148,6 +148,7 @@
                   </svg>
 
                 </button>
+
               </h3>
               <p class="pet-description">
                 <%= pet.description %>
@@ -185,7 +186,7 @@
 
         <input type="text" id="name" autocomplete="off" class="form-field" placeholder="Name">
         <input type="text" id="email" autocomplete="off" class="form-field" placeholder="Email Address">
-        <input type="text" id="question" autocomplete="off" class="form-field"
+        <input type="text" id="secret" autocomplete="off" class="form-field"
           placeholder="What is the word for a baby dog?">
         <textarea id="comment" class="form-field" placeholder="Comment(optional)"></textarea>
         <div class="justify-right"><button class="our-btn"> Submit</button></div>
@@ -198,11 +199,21 @@
       <div class="form-photo">
         <img src="/images/fallback.jpg" alt="">
         <p>
-          Thank you for your interest in <strong>Mundo</strong>.
+          Thank you for your interest in <strong>Mundo</strong>
         </p>
       </div> <!-- end of pet photo for overlay card-->
 
       <div class="thank-you">
+
+        <p>
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+            class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+            <path
+              d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+          </svg>
+
+          Thank you for reaching out.
+        </p>
 
       </div> <!-- End of thank you card overlay-->
 

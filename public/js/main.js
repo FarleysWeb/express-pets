@@ -37,12 +37,68 @@ function handleButtonClick(e) {
 document.querySelector(".form-overlay").style.display = "";
 
 function openOverlay(event) {
-  document.querySelector(".form-overlay").classList.add("form-overlay--is-visible")
+
+  document.querySelector(".form-content").dataset.id = event.dataset.id;
+
+  // set pet name
+  document.querySelector(".form-photo p strong").textContent =
+    event.closest(".pet-card").querySelector(".pet-name").textContent.trim() + ".";
+
+  //set pet photo
+  document.querySelector(".form-photo img").src =
+    event.closest(".pet-card").querySelector(".pet-card-photo img").src;
+
+  // open overlay
+  document.querySelector(".form-overlay").classList.add("form-overlay--is-visible");
+
+  // lock screen scrolling
+  document.querySelector(":root").style.overflowY = "hidden";
 
 }
 
 document.querySelector(".close-form-overlay").addEventListener("click", closeOverlay);
 
 function closeOverlay() {
-  document.querySelector(".form-overlay").classList.remove("form-overlay--is-visible")
+  //close overlay
+  document.querySelector(".form-overlay").classList.remove("form-overlay--is-visible");
+
+  // unlock screen scrolling
+  document.querySelector(":root").style.overflowY = "";
+
 }
+
+document.querySelector(".form-content").addEventListener("submit", async function (event) {
+
+  event.preventDefault();
+
+  const userValues = {
+    name: document.querySelector("#name").value,
+    email: document.querySelector("#email").value,
+    secret: document.querySelector("#secret").value,
+    comment: document.querySelector("#comment").value,
+    petId: event.target.dataset.id
+
+  }
+
+  console.log(userValues);
+
+  fetch("/submit-contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(userValues)
+  });
+
+  // swap to thank you overlay
+  document.querySelector(".thank-you").classList.add("thank-you--visible");
+  setTimeout(closeOverlay, 1500)
+  // close overlay out completely
+  setTimeout(() => {
+    document.querySelector(".thank-you").classList.remove("thank-you--visible");
+    document.querySelector("#name").value = "";
+    document.querySelector("#email").value = "";
+    document.querySelector("#secret").value = "";
+    document.querySelector("#comment").value = "";
+  }, 1800)
+
+
+});
